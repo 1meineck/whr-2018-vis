@@ -1,0 +1,10 @@
+#top{
+    display: table-cell;
+}
+#choropleth{
+    display: table-cell;
+}
+
+#radar-quick{
+    display: table-cell;
+}
