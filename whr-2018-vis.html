@@ -91,13 +91,28 @@
             function get_text(rows) {
                 return rows.map(function (row) { return 'Happiness: ' + (row['Happiness score']).toString() + '<br>Dystopia: ' + (row['Dystopia']).toString() + '<br>GDP per capital: ' + (row['GDP']).toString() + '<br>Social support: ' + (row['Social support']).toString() + '<br>Healthy life expectancy: ' + (row['Healthy life expectancy']).toString() + '<br>Freedom to make life choices: ' + (row['Freedom to make life choices']).toString() + '<br>Generosity: ' + (row['Generosity']).toString() + '<br>Perceptions of corruption: ' + (row['Perceptions of corruption']).toString(); });
             }
-
+            function unpack_selected(rows, key){
+        values = rows.map(function (row){
+            if (row['Happiness score']<=threshold){
+                return row[key];
+            }
+            else{
+                return 0;
+            }  
+        })
+        return values.filter(check_selected);
+    }
+    function check_selected(n){
+        return n != 0;
+    }
+    var threshold = 7;
+    function create_data(){
             my_text = get_text(rows);
             trace1 = {
                 type: 'choropleth',
                 locationmode: 'country names',
-                locations: unpack(rows, 'Country'),
-                z: unpack(rows, 'Happiness score'),
+                locations: unpack_selected(rows, 'Country'),
+                z: unpack_selected(rows, 'Happiness score'),
                 text: my_text,
                 hoverinfo: 'text+location',
                 autocolorscale: true,
@@ -114,8 +129,11 @@
                 name: 'Group A'
 
             };
+            data = [trace1, trace2]
+        }
+        create_data();
 
-            data = [trace1, trace2];
+            
 
             layout = {
                 title: 'World Happiness Report 2018',
@@ -137,6 +155,7 @@
                         visible: true,
                         range: [0, 3]
                     }
+                    
 
                 }
             };
@@ -146,7 +165,10 @@
                     var pt = (d.points || [])[0]
                     // enter and update selection
 
-                    draw(data4)
+                    threshold=8;
+                    create_data()
+                    Plotly.react('myDiv', data, layout,{showLink:false})
+
                     console.log(pt)
 
                 });
