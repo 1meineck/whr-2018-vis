@@ -1,11 +1,12 @@
 // Code adapted from Matt Hermann at http://bl.ocks.org/mph006/9e11bdbfcaed13c7a2b7
 //Options for the Radar chart, other than default
+
 var cfg = {
-    w: 700,
-    h: 700,
-    maxValue: 3,
+    w: 500,
+    h: 500,
+    maxValue: 3.00,
     levels: 9,
-   opacityArea: 0.20,
+   opacityArea: 0.50,
     radius:5,
     radians: 2 * Math.PI,
     factor:1,
@@ -15,11 +16,24 @@ var cfg = {
    TranslateY:60,
    ExtraWidthX: 700,
    ExtraWidthY: 200,
-   duration:200
+   duration:200,
+   
+   // set colors for the 'Glyph' here
+   lineColor: '#a6cee3',
+   areaColor: '#a6cee3',
+   dotColor: '#a6cee3'
 };
 
-//Will need this for the drag update, not sure how to pass it back and forth
-var maxAxisValues = [];
+// variables to use for filtering data
+var axisLevels = {
+ Dystopia: 3,
+ Corruption: 3,
+ Generosity: 3,
+ Freedom: 3,
+ Life: 3,
+ Social: 3,
+ GDP: 3
+}
 
 function init(){
   cfg.maxValue = Math.max(cfg.maxValue, d3.max(d, function(i){return d3.max(i.skills.map(function(o){return o.value;}));}));
@@ -113,7 +127,6 @@ function init(){
           .attr("transform", function(d, i){return "translate(0, -10)";})
           .attr("x", function(d, i){return cfg.w/2*(1-cfg.factorLegend*Math.sin(i*cfg.radians/total))-80*Math.sin(i*cfg.radians/total);})
           .attr("y", function(d, i){return cfg.h/2*(1-Math.cos(i*cfg.radians/total))-20*Math.cos(i*cfg.radians/total);});
-
   }
 
 drawAxis();
@@ -142,7 +155,7 @@ initPolygon();
              .attr("class", "radar-chart-series"+series)
              .attr("id","radar-chart-area-"+y.name.replace(" ","-"))
              .style("stroke-width", "2px")
-             .style("stroke", y.color)
+             .style("stroke", cfg.lineColor)
              .attr("points",function(d) {
                  var str="";
                  for(var pti=0;pti<d.length;pti++){
@@ -150,7 +163,7 @@ initPolygon();
                  }
                  return str;
               })
-             .style("fill", function(j, i){return y.color;})
+             .style("fill", cfg.areaColor)
              .style("fill-opacity", cfg.opacityArea);
 
           series++;
@@ -160,30 +173,28 @@ initPolygon();
 
   series=0;
 
+
   var drag = d3.behavior.drag()
             .on("drag",move)
             .on("dragend",dragend);
 
   function dragend(){
-        d3.select(".updatevalue.skill") 
-                    .style("display","block")
-                    .style("text-align","center")
-                    .style("margin-top","13px")
-                    .style("font-size","14px")
-                    .transition().duration(500)
-                    .text("Drag a Point to Edit");
-        d3.select(".updatevalue.value").style("visibility","hidden");
   }
 
 
   function move(dobj, i){
       this.parentNode.appendChild(this);
       var dragTarget = d3.select(this);
-
+      
       var oldData = dragTarget.data()[0];
       var oldX = parseFloat(dragTarget.attr("cx")) - cfg.w/2;
       var oldY = cfg.h/2 - parseFloat(dragTarget.attr("cy"));
+      var point_name = dragTarget.axis
 
+     var minvalue = false
+     var maxvalue = false
+
+     // console.log(point_name)
       //Bug for vector @ 270deg -Infinity/Infinity slope
       oldX=(Math.abs(oldX)<0.0000001)?0:oldX;
       oldY=(Math.abs(oldY)<0.0000001)?0:oldY;
@@ -213,11 +224,13 @@ initPolygon();
 
           var ratio = newX / oldX;
           newValue = (ratio * oldData.value);
-          console.log(newValue)
+          
       }
      
       //Bound the drag behavior to the max and min of the axis, not by pixels but by value calc (easier)
-      if(newValue >=0.000001 && newValue<= cfg.levels){
+      if(newValue >=0.0000001 && newValue<= cfg.levels){
+        minvalue = false
+        maxvalue = false
 
         dragTarget
               .attr("cx", function(){return newX + cfg.w/2 ;})
@@ -238,22 +251,49 @@ initPolygon();
                                       .style("display","block")
                                       .style("text-align","center")
                                       .style("visibility","visible");
-                                     
-       
-        
-        //drawPoly();'
         updatePoly();
 
-
       }
-
       //Release the drag listener on the node if you hit the min/max values
       //https://github.com/mbostock/d3/wiki/Drag-Behavior
+
       else{
-          if(newValue <=0){newValue =0;}
-          else if(newValue >=cfg.levels){newValue = cfg.levels;}
-          dragTarget.on("drag",null);
-      }
+          if(newValue <=0){newValue =0; maxvalue = false, minvalue = true, console.log('minValue')}
+          else if(newValue >=cfg.levels){newValue = cfg.levels; maxvalue = true, minvalue = false, console.log('maxValue')}
+          dragTarget.on("drag",null);       
+       }
+        var axisName = (dragTarget.data()[0]).axis
+        var axisValue = 0
+        
+        if (maxvalue){axisValue = 3.00}
+        else if (minvalue){axisValue = 0.00}
+        else{axisValue = (dragTarget.data()[0]).value.toFixed(2)}
+
+        if (axisName.includes('Dystopia')){
+          axisLevels.Dystopia = axisValue
+        }
+        else if (axisName.includes('GDP')){
+          axisLevels.GDP = axisValue
+        }
+        else if (axisName.includes('Corruption')){
+          axisLevels.Corruption = axisValue
+        }
+        else if (axisName.includes('Generosity')){
+          axisLevels.Generosity = axisValue
+        }
+        else if (axisName.includes('Freedom')){
+          axisLevels.Freedom = axisValue
+        }
+        else if (axisName.includes('Life')){
+          axisLevels.Life = axisValue
+        }
+        else if (axisName.includes('Social')){
+          axisLevels.Social = axisValue
+        } 
+        console.log("Dystopia ", axisLevels.Dystopia, "GDP ", axisLevels.GDP, 'Corruption ', axisLevels.Corruption, 'Generosity ', axisLevels.Generosity, 'Freedom ', axisLevels.Freedom, 'Life', axisLevels.Life, 'Social', axisLevels.Social)
+        
+        
+        //TODO: Data Update here
   }
 
 function updatePoly(){
@@ -265,9 +305,7 @@ function updatePoly(){
                       dataValues.push([
                     cfg.w/2*(1-(parseFloat(Math.max(j.value, 0))/cfg.maxValue)*cfg.factor*Math.sin(i*cfg.radians/total)), 
                     cfg.h/2*(1-(parseFloat(Math.max(j.value, 0))/cfg.maxValue)*cfg.factor*Math.cos(i*cfg.radians/total)),
-                  ]);
-
-                 
+                  ]);        
             });  
 
             dataValues = [dataValues];
@@ -304,8 +342,8 @@ function updatePoly(){
         return cfg.h/2*(1-(Math.max(j.value, 0)/cfg.maxValue)*cfg.factor*Math.cos(i*cfg.radians/total));
       })
       .attr("data-id", function(j){return j.axis;})
-      .style("fill", y.color)
-      .style("fill-opacity", 0.75)
+      .style("fill", cfg.dotColor)
+      .style("fill-opacity", 0.99)
   .style("z-index",12)
   .style("cursor","pointer")
       .call(drag);
@@ -314,64 +352,3 @@ function updatePoly(){
   });
 }//end init()
 init();
-
-
-
-function updateEditable(){
-  var group = $('.comparision-pool .avatar .name');
-  if(group.length ===1){
-      d3.select(".edit-btn").transition().duration(500).style("opacity",1).text("Edit "+group[0].innerText).style("visibility","visible");
-  }
-  else{
-      d3.select(".edit-btn").transition().duration(200).style("opacity",0).style("visibility","hidden");
-      //Update bar chart data with newly modified polygon value
-  }
-}
-
-function editSet(){
-  var button = d3.select(".edit-btn");
-  //Hard coded for now
-  var name = d[0].name;
-  var centerDisplay = d3.select(".update-value");
-  if(button[0][0].innerText.includes("Edit")){
-      button.text("Save Changes");
-
-      
-      centerDisplay.append("g").attr("class","updatevalue skill") 
-                                  .style("display","block")
-                                  .style("text-align","center")
-                                  .style("margin-top","13px")
-                                  .text("Drag a Point to Edit");
-
-      centerDisplay.append("g").attr("class","updatevalue value");
-
-
-
-      centerDisplay.transition().duration(500).style("opacity",1).style("visibility","visible");
-
-      // d3.select("#radar-chart-area-"+name.replace(" ","-")).transition().duration(500).style("opacity",0);
-      // d3.select("#radar-chart-area-"+name.replace(" ","-")).style("visibility","hidden");
-
-      d3.selectAll("#radar-chart-points-"+name.replace(" ","-"))
-          .transition().duration(750).attr("r",15);
-
-      d3.select(".point-value").style("visibility","hidden");
-  }
-  else if(button[0][0].innerText.includes("Save")){
-      button.text("Edit "+name);
-  
-
-      d3.selectAll(".updatevalue").remove();
-      centerDisplay.transition().duration(500).style("opacity",0).style("visibility","hidden");
-
-        // init();
-
-      //http://stackoverflow.com/questions/13136355/d3-js-remove-force-drag-from-a-selection
-      //d3.selectAll("#radar-chart-points-"+name.replace(" ","-"))
-         // .transition().duration(750).attr("r",5);
-
-  }
-}
-
-
-d3.select(".edit-btn").on("click",editSet);
