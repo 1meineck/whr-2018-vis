@@ -1,3 +1,4 @@
+
 Plotly.d3.csv('whr_data_vis.csv', function (err, rows) {
     function unpack(rows, key) {
         return rows.map(function (row) {
@@ -57,7 +58,7 @@ Plotly.d3.csv('whr_data_vis.csv', function (err, rows) {
     }
 
     var happy = [['select country', 0.0],[0.0,0.0,0.0,0.0,0.0,0.0,0.0]];
-    var dystopia = 1.0;
+    var dystopia = 3.0;
     var gdp =3.0;
     var social = 3.0;
     var lifeExp = 3.0; 
@@ -142,9 +143,10 @@ Plotly.d3.csv('whr_data_vis.csv', function (err, rows) {
             textposition: 'top',
 
             
-        }
+        };
 
         data = [table, trace1, trace2];
+        
     }
     create_data();
     layout = {
@@ -179,12 +181,53 @@ Plotly.d3.csv('whr_data_vis.csv', function (err, rows) {
             // enter and update selection
 
             happy = get_happiness(rows, pt.location);
-            console.log(happy);
+            
+            if (radar_selection.length <= 4){
+                console.log(radar_selection.includes(happy));
+            radar_selection.push(happy);
+            }
             create_data();
-            Plotly.react('choropleth', data, layout,{showLink:false})
+            create_radar(radar_selection);
+            Plotly.react('choropleth', data, layout,{showLink:false});
+            Plotly.react('radar', radar, layout,{showLink:false});
 
             }
 
         );
     });
+    radar_selection = []
+    function create_radar(data){
+        radar = []; 
+        if(radar_selection.length == 0){
+            radarData = {
+                type: 'scatterpolar',
+                theta: label,
+                r: [0,0,0,0,0,0,0]
+            }
+            radar.push(radarData);
+        }
+
+        for (i=0; i<data.length; i++){
+            radarData = {
+                type: 'scatterpolar',
+                r: data[i][1],
+                theta: label,
+                fill: 'toself', 
+                name: data[i][0][0],
+
+            };
+            radar.push(radarData);
+        }
+
+    
+    }
+radar_empty = [['',0.0],[0,0,0,0,0,0,0]]; 
+radarData = [radar_empty,radar_empty,radar_empty,radar_empty]
+create_radar(radarData);
+    Plotly.plot('radar', radar, layout,{showLink:false}).then(gd => {
+        gd.on('plotly_click', d => {
+            var pt = (d.points || [])[0];
+        })
+    })
 });
+console.log(whr_data);
