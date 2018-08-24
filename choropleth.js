@@ -6,7 +6,21 @@ Plotly.d3.csv('whr_data_vis.csv', function (err, rows) {
     }
     function get_text(rows) {
         texts = rows.map(function (row) {
-            if (row['HappinessScore'] <= threshold) { return 'Happiness: ' + (row['HappinessScore']).toString() + '<br>Dystopia: ' + (row['Dystopia']).toString() + '<br>GDP per capital: ' + (row['GDP']).toString() + '<br>Social Support: ' + (row['SocialSupport']).toString() + '<br>Healthy life expectancy: ' + (row['LifeExpectancy']).toString() + '<br>Freedom to make life choices: ' + (row['LifeChoices']).toString() + '<br>Generosity: ' + (row['Generosity']).toString() + '<br>Perceptions of corruption: ' + (row['Corruption']).toString(); }
+            if (row['Dystopia'] <= dystopia 
+            && row['GDP'] <= gdp 
+            && row['SocialSupport'] <= social
+            && row['LifeExpectancy'] <= lifeExp
+            && row['LifeChoices'] <= lifeChoices
+            && row['Generosity'] <= generosity
+            && row['Corruption'] <= corruption) 
+            { return 'Happiness: ' + (row['HappinessScore']).toString() 
+                + '<br>Dystopia: ' + (row['Dystopia']).toString() 
+                + '<br>GDP per capital: ' + (row['GDP']).toString() 
+                + '<br>Social Support: ' + (row['SocialSupport']).toString() 
+                + '<br>Healthy life expectancy: ' + (row['LifeExpectancy']).toString() 
+                + '<br>Freedom to make life choices: ' + (row['LifeChoices']).toString() 
+                + '<br>Generosity: ' + (row['Generosity']).toString() 
+                + '<br>Perceptions of corruption: ' + (row['Corruption']).toString(); }
             else {
                 return 0;
             }
@@ -19,11 +33,17 @@ Plotly.d3.csv('whr_data_vis.csv', function (err, rows) {
         var result = rows.find(obj => {
             return obj.Country === value;
           })
-          return [[result.Country, result.HappinessScore],[result.SocialSupport, result.LifeExpectancy, result.LifeChoices, result.Generosity, result.Corruption]];
+          return [[result.Country, result.HappinessScore],[result.Dystopia, result.GDP, result.SocialSupport, result.LifeExpectancy, result.LifeChoices, result.Generosity, result.Corruption]];
     }
     function unpack_selected(rows, key) {
         values = rows.map(function (row) {
-            if (row['HappinessScore'] <= threshold) {
+            if (row['Dystopia'] <= dystopia 
+            && row['GDP'] <= gdp 
+            && row['SocialSupport'] <= social
+            && row['LifeExpectancy'] <= lifeExp
+            && row['LifeChoices'] <= lifeChoices
+            && row['Generosity'] <= generosity
+            && row['Corruption'] <= corruption) {
                 return row[key];
             }
             else {
@@ -36,9 +56,22 @@ Plotly.d3.csv('whr_data_vis.csv', function (err, rows) {
         return n != 0;
     }
 
-    var happy = [];
-    var threshold = 6.0;
-    var label = ['Dystopia', 'GDP', 'Social Support', 'Healthy life expectancy', 'Freedom to make life choices', 'Generosity', 'Perception of corruption']
+    var happy = [['select country', 0.0],[0.0,0.0,0.0,0.0,0.0,0.0,0.0]];
+    var dystopia = 1.0;
+    var gdp =3.0;
+    var social = 3.0;
+    var lifeExp = 3.0; 
+    var lifeChoices = 3.0; 
+    var generosity = 3.0; 
+    var corruption = 3.0;
+
+    var label = ['Dystopia', 
+    'GDP', 
+    'Social Support', 
+    'Life Expectancy', 
+    'Life Choices', 
+    'Generosity', 
+    'Corruption']
 
     // Create Data -> call function before calling Plotly.react to update data
     function create_data() {
@@ -99,13 +132,19 @@ Plotly.d3.csv('whr_data_vis.csv', function (err, rows) {
 
         };
 
-        trace3 = {
+        trace2 = {
             type: 'scatterpolar',
-            r: []
+            r: happy[1], 
+            theta: label,
+            fill: 'toself', 
+            name: happy[0][1],
+            text: happy[0][0],
+            textposition: 'top',
+
             
         }
 
-        data = [table, trace1];
+        data = [table, trace1, trace2];
     }
     create_data();
     layout = {
@@ -118,12 +157,20 @@ Plotly.d3.csv('whr_data_vis.csv', function (err, rows) {
         },
         table: {
 
-        }
-        /*chart: {
-            domain:{
-                x: [0, 0.20]
+        },
+        polar: {
+            domain: {
+                x: [0.8, 0.95],
+                y: [0, 1]
+            },
+            radialaxis: {
+                visible: true,
+                range: [0, 3],
+                angle: 90,
             }
-        }*/
+
+        }
+        
     };
 
     Plotly.plot('choropleth', data, layout, { showLink: false }).then(gd => {
