@@ -30,8 +30,8 @@ function RadarChart() {
  
        areas: {
           colors: {},            // color lookup by key
-          opacity: 0.35,
-          borderWidth: 2,
+          opacity: 0.55,
+          borderWidth:  2,
           rounded: false,
           dotRadius: 4,
           sort: true,          // sort layers by approximation of size, smallest on top
@@ -54,7 +54,7 @@ function RadarChart() {
           position: { x: 25, y: 25 }
        },
  
-       color: d3.scale.category10()	   //Color function
+       color: d3.scale.category20c()	   //Color function
     }
  
     // nodes layered such that radarInvisibleCircles always on top of radarAreas
@@ -336,7 +336,7 @@ function RadarChart() {
                        return options.areas.filter.indexOf(d.key) >= 0 ? 0 : options.areas.opacity;
                     })
  
-                 var update_radarStroke = update_blobWrapper.selectAll('.radarStroke')
+                 var update_radarStroke = update_blobWrapper.selectAll('.line')
                     .data(function(d) { return [d]; }, get_key);
  
                  update_radarStroke.enter()
@@ -875,6 +875,9 @@ function RadarChart() {
              .style("fill-opacity", function(d, i, j) {
              return options.areas.filter.indexOf(d.key) >= 0 ? 0 : 0.1;
            }); 
+
+  
+
        //Bring back the hovered over blob
        d3.select(self)
           .transition().duration(200)
@@ -902,6 +905,7 @@ function RadarChart() {
                  .style("fill-opacity", function(d, i, j) {
                 return options.areas.filter.indexOf(d.key) >= 0 ? 0 : 0.1;
              }); 
+
              //Bring back the hovered over blob
           d3.selectAll(".radarArea." + area.replace(/\s+/g, ''))
                  .transition().duration(200)
