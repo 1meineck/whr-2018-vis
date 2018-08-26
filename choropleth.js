@@ -4,40 +4,27 @@ var label = ['Dystopia',
     'Life Expectancy',
     'Life Choices',
     'Generosity',
-    'Corruption']
+    'Corruption'];
+
+var layout_choropleth = {
+        geo: {
+            projection: {
+                type: 'equirectangular'
+            },
+    
+        },
+    
+    };
+
+var data_choropleth = [];
 
 // Create Data -> call function before calling Plotly.react to update data
-function create_data() {
+function update_choropleth() {
     var countries = getColumn("Country");
     var happiness = getColumn("HappinessScore");
 
-
-    var headerNames = ['Country', 'HappinessScore']
-    var cellValues = [countries, happiness];
-
-    var table = {
-        type: 'table',
-        columnwidth: [200, 100],
-        columnorder: [0, 1],
-        header: {
-            values: headerNames,
-            align: "center",
-            line: { wtable_dataidth: 1, color: 'rgb(50, 50, 50)' },
-            fill: { color: ['rgb(235, 100, 230)'] },
-            font: { family: "Arial", size: 11, color: "white" }
-        },
-        cells: {
-            values: cellValues,
-            align: ["center", "center"],
-            line: { color: "black", width: 1 },
-            font: { family: "Arial", size: 10, color: ["black"] }
-        },
-        xaxis: 'x',
-        domain: { x: [0, 0.2] }
-    }
-
     my_text = hover_text;
-    trace1 = {
+    data_choropleth = [{
         type: 'choropleth',
         mode: 'markers',
         locationmode: 'country names',
@@ -50,53 +37,13 @@ function create_data() {
         colorbar: {
             x: 1,
         },
-        domain: { x: [0.2, 0.8] }
 
-    };
-
-    trace2 = {
-        type: 'scatterpolar',
-        r: [happy.Dystopia, happy.GDP, happy.SocialSupport, happy.LifeExpectancy, happy.LifeChoices, happy.Generosity, happy.Corruption],
-        theta: label,
-        fill: 'toself',
-        name: happy.Country,
-        text: happy.HappinessScore,
-        textposition: 'top',
-
-
-    };
-
-    data = [table, trace1, trace2];
+    }];
+    Plotly.react('choropleth', data_choropleth, layout_choropleth, { showLink: false, displayModeBar: false});
 
 }
-create_data();
-layout = {
-    title: 'World Happiness Report 2018',
-    geo: {
-        projection: {
-            type: 'equirectangular'
-        },
 
-    },
-    table: {
-
-    },
-    polar: {
-        domain: {
-            x: [0.8, 0.95],
-            y: [0, 1]
-        },
-        radialaxis: {
-            visible: true,
-            range: [0, 3],
-            angle: 90,
-        }
-
-    }
-
-};
-
-Plotly.plot('choropleth', data, layout, { showLink: false }).then(gd => {
+Plotly.plot('choropleth', data_choropleth, layout_choropleth, { showLink: false, displayModeBar: false}).then(gd => {
     gd.on('plotly_click', d => {
         var pt = (d.points || [])[0]
         // enter and update selection
@@ -107,17 +54,20 @@ Plotly.plot('choropleth', data, layout, { showLink: false }).then(gd => {
             console.log(radar_selection.includes(happy));
             radar_selection.push(happy);
         }
-        create_data();
-        create_radar(radar_selection);
-        Plotly.react('choropleth', data, layout, { showLink: false });
-        Plotly.react('radar', radar, layout, { showLink: false });
+        update_choropleth();
+        update_radar(radar_selection);
+        Plotly.react('choropleth', data_choropleth, layout_choropleth, { showLink: false, displayModeBar: false});
+        Plotly.react('radar', radar, layout_choropleth, { showLink: false, displayModeBar: false});
 
     }
 
     );
 });
+update_choropleth();
+
+
 radar_selection = []
-function create_radar(data) {
+function update_radar(data) {
     radar = [];
     if (radar_selection.length == 0) {
         radarData = {
@@ -144,8 +94,8 @@ function create_radar(data) {
 }
 radar_empty = [['', 0.0], [0, 0, 0, 0, 0, 0, 0]];
 radarData = [radar_empty, radar_empty, radar_empty, radar_empty]
-create_radar(radarData);
-Plotly.plot('radar', radar, layout, { showLink: false }).then(gd => {
+update_radar(radarData);
+Plotly.plot('radar', radar, layout_choropleth, { showLink: false }).then(gd => {
     gd.on('plotly_click', d => {
         var pt = (d.points || [])[0];
     })

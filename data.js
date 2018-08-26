@@ -19,7 +19,7 @@ function select_data() {
 			&& current_data.Corruption <= filter_data.skills[6].value) {
 			selected_data.push(current_data);
 			table_data.push([current_data.Country, current_data.HappinessScore]);
-			hover_text.push('Happiness: ' + current_data.HappinessScore.toString()
+			/*hover_text.push('Happiness: ' + current_data.HappinessScore.toString()
 				+ '<br>Dystopia: ' + current_data.Dystopia.toString()
 				+ '<br>GDP per capital: ' + current_data.GDP.toString()
 				+ '<br>Social Support: ' + current_data.SocialSupport.toString()
@@ -27,6 +27,7 @@ function select_data() {
 				+ '<br>Freedom to make life choices: ' + current_data.LifeChoices.toString()
 				+ '<br>Generosity: ' + current_data.Generosity.toString()
 				+ '<br>Perceptions of corruption: ' + current_data.Corruption.toString());
+				*/
 		}
 	}
 	return selected_data;
