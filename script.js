@@ -291,9 +291,13 @@ initPolygon();
           axisLevels.Social = axisValue
         } 
         console.log("Dystopia ", axisLevels.Dystopia, "GDP ", axisLevels.GDP, 'Corruption ', axisLevels.Corruption, 'Generosity ', axisLevels.Generosity, 'Freedom ', axisLevels.Freedom, 'Life', axisLevels.Life, 'Social', axisLevels.Social)
-        
+
         
         //TODO: Data Update here
+        select_data();
+        update_choropleth();
+        update_table();
+
   }
 
 function updatePoly(){
