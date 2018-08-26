@@ -44,7 +44,7 @@ function create_data() {
         locations: countries,
         z: happiness,
         text: my_text,
-        hoverinfo: 'text+location',
+        hoverinfo: 'z+location',
         autocolorscale: true,
         xaxis: 'x',
         colorbar: {
