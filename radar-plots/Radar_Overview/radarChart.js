@@ -6,7 +6,7 @@ function RadarChart() {
     var data = [];
     var _data = [];
     var options = {
-       filter: 'glow',        // define your own filter; false = no filter;
+       filter: false,        // define your own filter; false = no filter;
  
        width: window.innerWidth,
         height: window.innerHeight,
@@ -915,18 +915,17 @@ function RadarChart() {
      }
  
     function legendClick(d, i, self) {
-          var keys = data.map(function(m) {return m.key});
-          modifyList(options.areas.filter, keys[d], keys);
-          updateData();
-          var state = d3.select(self).select('path').attr('toggle');
-          if (state == 'true') {
-             var shape = d3.svg.symbol().type(options.legend.symbol).size(150)()
-          } else {
-             var shape = d3.svg.symbol().type(options.legend.toggle).size(150)()
-          }
-          d3.select(self).select('path')
-                         .attr('toggle', state == 'true' ? 'false' : 'true' )
-                         .attr('d', function(d, i) { return shape; });
+         console.log("d",d,"i",i)
+         var name = keys.indexOf(d) >= 0 ? d : keyScale(d)
+         console.log(name)
+        
+         for(var i=0; i<data.length; i++){
+         if(data[i]["key"] == name){
+           console.log(i)
+           data.splice(i,1)
+         }
+         chart.update(data)
+        }
     }
  
     function tooltip_show(d, i, self) {
