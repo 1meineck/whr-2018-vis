@@ -27,22 +27,16 @@ function select_data() {
 				&& current_data.Corruption <= axisLevels.Corruption){
 				selected_choropleth.push(current_data);
 				selected_table.push([current_data.Country, current_data.HappinessScore]);
-				/*hover_text.push('Happiness: ' + current_data.HappinessScore.toString()
-					+ '<br>Dystopia: ' + current_data.Dystopia.toString()
-					+ '<br>GDP per capital: ' + current_data.GDP.toString()
-					+ '<br>Social Support: ' + current_data.SocialSupport.toString()
-					+ '<br>Healthy life expectancy: ' + current_data.LifeExpectancy.toString()
-					+ '<br>Freedom to make life choices: ' + current_data.LifeChoices.toString()
-					+ '<br>Generosity: ' + current_data.Generosity.toString()
-					+ '<br>Perceptions of corruption: ' + current_data.Corruption.toString());
-					*/
-					console.log(selected_choropleth);
 			} else{
 				deselected_choropleth.push(current_data);
 				deselected_table.push([current_data.Country, current_data.HappinessScore]);
+		}
 	}
-	}
+	set_data_to_selection();
+	
+}
 
+function set_data_to_selection(){
 	if (selection){
 		current_choropleth = selected_choropleth;
 		current_table = selected_table;
@@ -108,8 +102,7 @@ function getHappiness(location) {
 
 
 }
-console.log(selected_choropleth);
-console.log(deselected_choropleth);
+
 select_data();
 getColumn("Corruption");
 
