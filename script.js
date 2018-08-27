@@ -292,6 +292,9 @@ function move(dobj, i){
       
       
       //TODO: Data Update here
+      select_data(); 
+      update_choropleth();
+      update_table();
 }
 
 function updatePoly(){
