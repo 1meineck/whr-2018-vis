@@ -17,25 +17,31 @@
 
 <body>
 
-    <div class="wrap" id="wrapper">
-        <div class="plot" id="table"></div>
-        <div class="wrap" id="wrapper2">
-            <div class="wrap" id="wrapper1">
-                <div class="plot" id="choropleth"></div>
-                <div class="plot  w3-display-container" id="radar">
-                    <button id="add_button" class="w3-button w3-circle w3-teal w3-display-bottomleft" onclick="addOnClick()">+</button>
-                    </div>
-            </div>
+    <div class="wrap" id="main">
+        <div class="wrap" id="upper">
             <div id="body">
                 <div class="w3-display-container" id="chart">
-                    <button id="invert_button" class="w3-button w3-teal w3-display-topleft" onclick="selectFilter()">Invert</button>
+                    <button id="invert_button" class="w3-button w3-teal w3-display-topleft" onclick="selectFilter()">MAX</button>
                 </div>
                 <div class="update-value"></div>
-
-
+            </div>
+            <div class="plot" id="choropleth"></div>
+            <div class="w3-display-container" id="radar">
+                <button class="w3-button w3-circle w3-teal w3-display-bottomleft" onclick="addOnClick()">+</button>
             </div>
         </div>
-        <div id="overviewChart"></div>
+        <div id="lower">
+            <div class="radarset" id="overviewChart"></div>
+            <div class="w3-display-container radarset" id="radar1">
+                <button class="w3-button w3-circle w3-teal w3-display-bottomleft" onclick="addToOverview()">&#8249;</button>
+            </div>
+            <div class="w3-display-container radarset" id="radar2">
+                <button class="w3-button w3-circle w3-teal w3-display-bottomleft" onclick="addToOverview()">&#8249;</button>
+            </div>
+            <div class="w3-display-container radarset" id="radar3">
+                <button class="w3-button w3-circle w3-teal w3-display-bottomleft" onclick="addToOverview()">&#8249;</button>
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript" src="data.js"></script>
@@ -43,7 +49,6 @@
     <script type="text/javascript" src="script.js"></script>
     <script src="whr_data_vis.js"></script>
     <script type="text/javascript" src="data2.js"></script>
-    <script src="table.js"></script>
     <script src="choropleth.js"></script>
     <script src="radarChart.js"></script>
 
@@ -65,11 +70,21 @@
             "Generosity": 0.0,
             "Corruption": 0.0
         }
+        //TODO: Change Chart Options
+        //Chart Options
         var radarChartOptions = {
             width: 400,
             height: 400,
             color: color
         };
+
+        var radarChartOptions_lower = {
+            width: 400,
+            height: 400,
+            color: color
+        };
+
+        // upper Chart - Quick View
 
         radarChart = RadarChart();
         //this should happen for setup for each chart
@@ -78,7 +93,11 @@
         //set stacking to true if multiple areas should be drawn
         radarChart.stacking(false).update()
         radarChart.addData(array0)
+        d3.select('#radar')
+            .call(radarChart);
+        radarChart.options(radarChartOptions).update();
 
+        // lower Charts - Overview & Compare
         overviewChart = RadarChart();
         //this should happen for setup for each chart
         overviewChart.options({ 'legend': { display: true } });
@@ -87,24 +106,79 @@
         overviewChart.stacking(true).update()
         overviewChart.addData(array0)
 
-        d3.select('#radar')
-            .call(radarChart);
-
         d3.select('#overviewChart')
             .call(overviewChart);
 
-        radarChart.options(radarChartOptions).update();
-        overviewChart.options(radarChartOptions).update();
-        
-        function addOnClick(){
-            overviewChart.addData(happy);
+        overviewChart.options(radarChartOptions_lower).update();
+
+
+        radarChart1 = RadarChart();
+        //this should happen for setup for each chart
+        radarChart1.options({ 'legend': { display: true } });
+        radarChart1.options({ 'legend': { symbol: 'triangle-down' } })
+        //set stacking to true if multiple areas should be drawn
+        radarChart1.stacking(false).update()
+        radarChart1.addData(array0)
+        d3.select('#radar1')
+            .call(radarChart1);
+        radarChart1.options(radarChartOptions_lower).update();
+
+        radarChart2 = RadarChart();
+        //this should happen for setup for each chart
+        radarChart2.options({ 'legend': { display: true } });
+        radarChart2.options({ 'legend': { symbol: 'triangle-down' } })
+        //set stacking to true if multiple areas should be drawn
+        radarChart2.stacking(false).update()
+        radarChart2.addData(array0)
+        d3.select('#radar2')
+            .call(radarChart2);
+        radarChart2.options(radarChartOptions_lower).update();
+
+        radarChart3 = RadarChart();
+        //this should happen for setup for each chart
+        radarChart3.options({ 'legend': { display: true } });
+        radarChart3.options({ 'legend': { symbol: 'triangle-down' } })
+        //set stacking to true if multiple areas should be drawn
+        radarChart3.stacking(false).update()
+        radarChart3.addData(array0)
+        d3.select('#radar3')
+            .call(radarChart3);
+        radarChart3.options(radarChartOptions_lower).update();
+
+    </script>
+    <script>
+        function addOnClick() {
+            //TODO: check if radar 1, 2, 3 is empty -> add data
+            if (true){
+                overviewChart.addData(happy);
+            }
+            else{
+                alert("Please delete one of the exisiting datasets")
+            }
         }
 
-        function selectFilter(){
-            selection = !selection; 
-            console.log(selection);
+        function selectFilter() {
+            //TODO: change color of filter
+            if (selection){
+                document.getElementById("invert_button").innerText="MIN"
+            }
+            else{
+                document.getElementById("invert_button").innerText="MAX"
+            }
+            selection = !selection;
+            set_data_to_selection();
+            update_choropleth();
+            //update_all();
+        }
+
+        function addToOverview(){
+            //TODO: get happy_data from respective radarChart, might need a different function for each radar
+            happy_data = happy;
+            overviewChart.addData(happy_data);
+        }
+
+        function update_all() {
             select_data();
-            update_table();
             update_choropleth();
         }
     </script>
