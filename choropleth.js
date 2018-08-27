@@ -12,6 +12,25 @@ var layout_choropleth = {
             },    
         //height: document.getElementById('choropleth').clientHeight,    
         width: document.getElementById('choropleth').clientWidth,
+        xaxis: {
+            linecolor: 'black',
+            linewidth: 2,
+            mirror: true
+          },
+          yaxis: {
+            linecolor: 'black',
+            linewidth: 2,
+            mirror: true
+          },
+          // fill out div
+          margin:{
+            l: 20,
+            r: 20,
+            t:20, 
+            b: 20,
+        },
+        showframe: true,
+        autoexpand: true,
     };
 
 var data_choropleth = [];
@@ -37,13 +56,8 @@ function update_choropleth() {
         colorbar: {
             x: 1,
         },
-        margin:{
-            l: 5,
-            r: 5,
-            t:5, 
-            b: 5,
-        },
-        autoexpand: true,
+        
+        
     }];
     Plotly.react('choropleth', data_choropleth, layout_choropleth, { showLink: false, displayModeBar: false});
 
@@ -54,13 +68,13 @@ Plotly.plot('choropleth', data_choropleth, layout_choropleth, { showLink: false,
         var pt = (d.points || [])[0]
         // enter and update selection
 
+        //TODO: <- just to find faster
+        // here we create happy data that is used to fill radar charts. 
         happy = getHappiness(pt.location);
 
         radarChart.addData(happy);
        // overviewChart.addData(happy);
 
-        update_choropleth();
-        Plotly.react('choropleth', data_choropleth, layout_choropleth, { showLink: false, displayModeBar: false});
     }
 
     );
