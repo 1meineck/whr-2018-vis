@@ -10,9 +10,8 @@ var layout_choropleth = {
             projection: {
                 type: 'equirectangular'
             },    
-        autosize: false,
-        height: document.getElementById('choropleth').clientHeight,    
-        //width: document.getElementById('choropleth').clientWidth,
+        //height: document.getElementById('choropleth').clientHeight,    
+        width: document.getElementById('choropleth').clientWidth,
     };
 
 var data_choropleth = [];

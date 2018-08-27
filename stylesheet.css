@@ -1,12 +1,14 @@
-h4{
+@import url("https://www.w3schools.com/w3css/4/w3.css");
+
+h1{
     text-align: center;
     height: auto;
     padding: 0;
     margin: 0;
 }
 * {
-    margin:0px;
-    padding:0px;
+    padding: 0;
+    margin: 0px auto;
 }
 
 
@@ -15,77 +17,56 @@ h4{
     width: 100vw;
     height: auto;
     overflow: hidden;
-    padding: 0;
-    margin: 0;
-    display:block;
+    display:inline-block;
 }
 #wrapper1{
     width: 75vw;
     height: auto;
     overflow: hidden;
-    padding: 0;
-    margin: 0;
-    display:block;
+    display:inline-block;
 }
 #wrapper2{
     width: 75vw;
     height: auto;
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-    display:block;
+    display:inline-block;
 }
 
 #table{
     width: 25vw;
-    height: auto;
-    padding: 0;
-    margin: 0;
+    height: 100vh;
     float: left;
-    display:block;
+    display:inline-flex;
 }
 
 #choropleth{
     width: 50vw;
-    height: auto;
+    height: 100vh;
     float: left;
-    padding: 0;
-    margin: 0;
-    display:block;
+    display:inline-flex;
 }
 
 #radar{
-    width: 25vw;
-    height: auto;
-    padding: 0;
-    margin: 0;
+    width:25vw;
+    height: 100vh;
     float: left;
-    display:block;
+    display:inline-flex;
 }
 
 #body{
     width:70vw; 
     height: auto;
     overflow: hidden;
-    padding: 0;
-    margin: 0;
-    float: left;
-    display:block;
+    display:inline-flex;
 }
 #chart{
     width:70vw;
     height: auto; 
-    padding: 0;
-    margin: 0;
-    float: left;
-    display:block;
+    display:inline-flex;
 }
 #overview{
     width: 50vw;
     height: auto;
     overflow: hidden;
-    padding: 0;
-    margin: 0;
-    float: left;
-    display:block;
+    display:inline-flex;
 }
+
