@@ -19,9 +19,7 @@ var cfg = {
    duration:200,
    
    // set colors for the 'Glyph' here
-   lineColor: '#a6cee3',
-   areaColor: '#a6cee3',
-   dotColor: '#a6cee3'
+   color: '#a6cee3',
 };
 
 // variables to use for filtering data
@@ -155,7 +153,7 @@ initPolygon();
              .attr("class", "radar-chart-series"+series)
              .attr("id","radar-chart-area-"+y.name.replace(" ","-"))
              .style("stroke-width", "2px")
-             .style("stroke", y.color)
+             .style("stroke", cfg.color)
              .attr("points",function(d) {
                  var str="";
                  for(var pti=0;pti<d.length;pti++){
@@ -163,7 +161,7 @@ initPolygon();
                  }
                  return str;
               })
-             .style("fill", function(j, i){return y.color;})
+             .style("fill", cfg.color)
              .style("fill-opacity", cfg.opacityArea);
 
           series++;
@@ -342,7 +340,7 @@ function updatePoly(){
         return cfg.h/2*(1-(Math.max(j.value, 0)/cfg.maxValue)*cfg.factor*Math.cos(i*cfg.radians/total));
       })
       .attr("data-id", function(j){return j.axis;})
-      .style("fill", y.color)
+      .style("fill", cfg.color)
       .style("fill-opacity", 0.99)
   .style("z-index",12)
   .style("cursor","pointer")
@@ -350,5 +348,13 @@ function updatePoly(){
 
     series++;
   });
+ 
 }//end init()
 init();
+
+function setColor(color){
+  cfg.color = color
+  init()
+}
+
+

@@ -646,10 +646,13 @@ function RadarChart() {
             new_set = {
                 "key": array.Country,
                 "values": [
+                    { "axis": "LifeChoices", "value": array.LifeChoices },
+                    { "axis": "SocialSupport", "value": array.SocialSupport },
+                    { "axis": "LifeExpectancy", "value": array.LifeExpectancy }, 
+                    { "axis": "GDP", "value": array.GDP }, 
                     { "axis": "Dystopia", "value": array.Dystopia },
-                    { "axis": "GDP", "value": array.GDP }, { "axis": "SocialSupport", "value": array.SocialSupport },
-                    { "axis": "LifeExpectancy", "value": array.LifeExpectancy }, { "axis": "LifeChoices", "value": array.LifeChoices },
-                    { "axis": "Generosity", "value": array.Generosity }, { axis: "Corruption", value: array.Corruption },
+                    { "axis": "Generosity", "value": array.Generosity },
+                    { "axis": "Corruption", value: array.Corruption },
                 ]
             }
             chart.removeData("No Country Selected")
