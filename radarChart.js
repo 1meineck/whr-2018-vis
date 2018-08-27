@@ -646,9 +646,9 @@ function RadarChart() {
             new_set = {
                 "key": array.Country,
                 "values": [
-                    { "axis": "LifeChoices", "value": array.LifeChoices },
-                    { "axis": "SocialSupport", "value": array.SocialSupport },
-                    { "axis": "LifeExpectancy", "value": array.LifeExpectancy }, 
+                    { "axis": "Freedom", "value": array.LifeChoices },
+                    { "axis": "Social Support", "value": array.SocialSupport },
+                    { "axis": "Life Expectancy", "value": array.LifeExpectancy }, 
                     { "axis": "GDP", "value": array.GDP }, 
                     { "axis": "Dystopia", "value": array.Dystopia },
                     { "axis": "Generosity", "value": array.Generosity },
