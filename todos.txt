@@ -1,29 +1,30 @@
 TODOs: 
 - Button -> switch filter
-    -> rewrite select data -> switch only needs different dataset, not complete recalculation
+    -> DONE rewrite select data -> switch only needs different dataset, not complete recalculation
     -> change color of filter
-    -> change button text to indicate which modus is on
+    -> DONE change button text to indicate which modus is on
 - Styling
     -> change color of choropleth
     -> change colors of radar-charts
     -> text 
     
     -> choropleth: 
-        -> border
+        -> border -> tried and failed. 
         -> change color
         -> hoverinfo-color?
         
-   ( -> table: 
+   ( -> table: DONE
         -> start without? -> show only if wanted
         -> color
         -> text font
         -> disable change of order
     ->) 
-    -> radar -> add to overview and single radar below
+    -> radars -> buttons are there, needs a function that checks if radars are empty and fills them -> see html 
     
 
 
-    -> layout
-        filter - map - radar(1)
-        overview - radar(3|4)
+    -> layout -> initial layout done, sizes of charts need to be adjusted accordingly 
+        filter (25% of screenWidth) - map (50%) - radar(25%)
+        overview (25%) - 3 radar(25%)
+
 
