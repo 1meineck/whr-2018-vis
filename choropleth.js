@@ -37,6 +37,13 @@ function update_choropleth() {
         colorbar: {
             x: 1,
         },
+        margin:{
+            l: 5,
+            r: 5,
+            t:5, 
+            b: 5,
+        },
+        autoexpand: true,
     }];
     Plotly.react('choropleth', data_choropleth, layout_choropleth, { showLink: false, displayModeBar: false});
 
@@ -50,7 +57,7 @@ Plotly.plot('choropleth', data_choropleth, layout_choropleth, { showLink: false,
         happy = getHappiness(pt.location);
 
         radarChart.addData(happy);
-        overviewChart.addData(happy);
+       // overviewChart.addData(happy);
 
         update_choropleth();
         Plotly.react('choropleth', data_choropleth, layout_choropleth, { showLink: false, displayModeBar: false});

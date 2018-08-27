@@ -1,0 +1,29 @@
+TODOs: 
+- Button -> switch filter
+    -> rewrite select data -> switch only needs different dataset, not complete recalculation
+    -> change color of filter
+    -> change button text to indicate which modus is on
+- Styling
+    -> change color of choropleth
+    -> change colors of radar-charts
+    -> text 
+    
+    -> choropleth: 
+        -> border
+        -> change color
+        -> hoverinfo-color?
+        
+   ( -> table: 
+        -> start without? -> show only if wanted
+        -> color
+        -> text font
+        -> disable change of order
+    ->) 
+    -> radar -> add to overview and single radar below
+    
+
+
+    -> layout
+        filter - map - radar(1)
+        overview - radar(3|4)
+

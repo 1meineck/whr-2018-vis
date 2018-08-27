@@ -36,6 +36,13 @@ function update_table() {
             width: 400,
         },
         xaxis: 'x',
+        margin:{
+            l: 5,
+            r: 5,
+            t:5, 
+            b: 5,
+        },
+        autoexpand:true,
     }]
 
     Plotly.react('table', table, layout_table, { showLink: false, displayModeBar: false}); 

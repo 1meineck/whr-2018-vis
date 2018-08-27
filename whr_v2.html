@@ -23,11 +23,13 @@
             <div class="wrap" id="wrapper1">
                 <div class="plot" id="choropleth"></div>
                 <div class="plot  w3-display-container" id="radar">
-                    <button id="add_button" class="w3-button w3-xlarge w3-circle w3-teal w3-display-bottomleft">+</button>
+                    <button id="add_button" class="w3-button w3-circle w3-teal w3-display-bottomleft" onclick="addOnClick()">+</button>
                     </div>
             </div>
             <div id="body">
-                <div id="chart"></div>
+                <div class="w3-display-container" id="chart">
+                    <button id="invert_button" class="w3-button w3-teal w3-display-topleft" onclick="selectFilter()">Invert</button>
+                </div>
                 <div class="update-value"></div>
 
 
@@ -93,7 +95,18 @@
 
         radarChart.options(radarChartOptions).update();
         overviewChart.options(radarChartOptions).update();
+        
+        function addOnClick(){
+            overviewChart.addData(happy);
+        }
 
+        function selectFilter(){
+            selection = !selection; 
+            console.log(selection);
+            select_data();
+            update_table();
+            update_choropleth();
+        }
     </script>
 
 
