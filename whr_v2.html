@@ -147,23 +147,31 @@
 
     </script>
     <script>
+        //TODO: choose colors for radar_chart min and max, change initial color of radarchart accordingly
+        //maybe change button-color?
+        color_min = '#ff0000'
+        color_max = '#00ffff'
+
         function addOnClick() {
             //TODO: check if radar 1, 2, 3 is empty -> add data
             if (true){
                 overviewChart.addData(happy);
             }
             else{
-                alert("Please delete one of the exisiting datasets")
+                alert("Please remove one of the exisiting datasets")
             }
         }
 
         function selectFilter() {
-            //TODO: change color of filter
+            //TODO: change color of filter - DONE
+            invertbutton = document.getElementById("invert_button")
             if (selection){
-                document.getElementById("invert_button").innerText="MIN"
+                setColor(color_min)
+                invertbutton.innerText="MIN"
             }
             else{
-                document.getElementById("invert_button").innerText="MAX"
+                setColor(color_max)
+                invertbutton.innerText="MAX"
             }
             selection = !selection;
             set_data_to_selection();
