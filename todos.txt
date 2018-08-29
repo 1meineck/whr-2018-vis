@@ -1,12 +1,13 @@
 TODOs: 
 - Button -> switch filter
     -> DONE rewrite select data -> switch only needs different dataset, not complete recalculation
-    -> change color of filter
+    -> DONE change color of filter
     -> DONE change button text to indicate which modus is on
 - Styling
     -> change color of choropleth
     -> change colors of radar-charts
     -> text 
+    -> select color for filter
     
     -> choropleth: 
         -> border -> tried and failed. 
@@ -20,8 +21,8 @@ TODOs:
         -> disable change of order
     ->) 
     -> radars -> buttons are there, needs a function that checks if radars are empty and fills them -> see html 
-    
-
+            -> remove datasets on buttonpress
+            -> fix hover function
 
     -> layout -> initial layout done, sizes of charts need to be adjusted accordingly 
         filter (25% of screenWidth) - map (50%) - radar(25%)

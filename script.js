@@ -2,8 +2,8 @@
 //Options for the Radar chart, other than default
 
 var cfg = {
-  w: 500,
-  h: 500,
+  w: 200,
+  h: 200,
   maxValue: 3.00,
   levels: 9,
  opacityArea: 0.50,

@@ -33,13 +33,13 @@
         <div id="lower">
             <div class="radarset" id="overviewChart"></div>
             <div class="w3-display-container radarset" id="radar1">
-                <button class="w3-button w3-circle w3-teal w3-display-bottomleft" onclick="addToOverview()">&#8249;</button>
+                <button class="w3-button w3-circle w3-teal w3-display-bottomleft" onclick="removeData(radarChart1)">&#8249;</button>
             </div>
             <div class="w3-display-container radarset" id="radar2">
-                <button class="w3-button w3-circle w3-teal w3-display-bottomleft" onclick="addToOverview()">&#8249;</button>
+                <button class="w3-button w3-circle w3-teal w3-display-bottomleft" onclick="removeData(radarChart2)">&#8249;</button>
             </div>
             <div class="w3-display-container radarset" id="radar3">
-                <button class="w3-button w3-circle w3-teal w3-display-bottomleft" onclick="addToOverview()">&#8249;</button>
+                <button class="w3-button w3-circle w3-teal w3-display-bottomleft" onclick="removeData(radarChart3)">&#8249;</button>
             </div>
         </div>
     </div>
@@ -56,6 +56,8 @@
         var operation = d3.select('body').append('div').append('h2');
 
         data = [];
+        radarCharts_single = [];
+
         var color = d3.scale.ordinal()
             .range(['#1f78b4', '#b2df8a', '#33a02c', '#a6cee3', '#fb9a99']);
 
@@ -122,6 +124,7 @@
         d3.select('#radar1')
             .call(radarChart1);
         radarChart1.options(radarChartOptions_lower).update();
+        radarCharts_single.push(radarChart1)
 
         radarChart2 = RadarChart();
         //this should happen for setup for each chart
@@ -133,6 +136,7 @@
         d3.select('#radar2')
             .call(radarChart2);
         radarChart2.options(radarChartOptions_lower).update();
+        radarCharts_single.push(radarChart2)
 
         radarChart3 = RadarChart();
         //this should happen for setup for each chart
@@ -144,6 +148,7 @@
         d3.select('#radar3')
             .call(radarChart3);
         radarChart3.options(radarChartOptions_lower).update();
+        radarCharts_single.push(radarChart3)
 
     </script>
     <script>
@@ -153,8 +158,30 @@
         color_max = '#00ffff'
 
         function addOnClick() {
+            added = false
+            //check if there is data to add
+            if (radarChart.is_empty()){
+                return
+            }
+            var name = radarChart.get_content()
+            //check if the country is already in the dataset
+            for(var i=0; i < radarCharts_single.length; i++){
+                chart = radarCharts_single[i]
+                if(chart.get_content() == name){
+                    console.log(name)
+                    return
+                }
+            }
             //TODO: check if radar 1, 2, 3 is empty -> add data
-            if (true){
+            for (var i = 0; i < radarCharts_single.length; i++) {  
+                if(radarCharts_single[i].is_empty() && !added){
+                    radarCharts_single[i].addData(happy)
+                    overviewChart.addData(happy)
+                    added = true
+                }
+            }
+        
+            if (added){
                 overviewChart.addData(happy);
             }
             else{
@@ -183,6 +210,13 @@
             //TODO: get happy_data from respective radarChart, might need a different function for each radar
             happy_data = happy;
             overviewChart.addData(happy_data);
+        }
+
+        function removeData(chart){
+            var country_name
+            country_name = chart.get_content()
+            chart.removeData(country_name)
+            overviewChart.removeData(country_name)
         }
 
         function update_all() {

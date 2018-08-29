@@ -628,6 +628,18 @@ function RadarChart() {
         return options.areas.colors[key] ? options.areas.colors[key] : options.color(index);
     }
 
+    chart.is_empty = function () {
+        var name = 'No Country Selected'
+        var empty = false
+
+        if (data[0]['key'] == name){
+            empty = true
+        }
+        else{empty = false}
+
+        return empty
+    }
+
     //Function to add new Dataset, if it is not already added
     chart.addData = function (array) {
 
@@ -655,8 +667,11 @@ function RadarChart() {
                     { "axis": "Corruption", value: array.Corruption },
                 ]
             }
-            chart.removeData("No Country Selected")
+            
             data.push(new_set)
+            if(data.length>=2){
+                chart.removeData("No Country Selected")}
+            
             chart.data(data).update()
 
         }
@@ -672,8 +687,13 @@ function RadarChart() {
     chart.removeData = function(name) {
         for (var i = 0; i < data.length; i++) {
             if (data[i]["key"] == name) {
-                console.log('removing', i)
                 data.splice(i, 1)
+                console.log('removing: ', name)
+               
+                if (data.length<1){
+                    this.add_empty_data()
+                }
+                chart.update(data)
             }
         }
     }
@@ -694,6 +714,11 @@ function RadarChart() {
         data_empty = true
         // chart.color()
         chart.update(data)
+    }
+
+    chart.get_content = function(){
+        name = data[0]['key']
+        return name
     }
 
 
