@@ -21,11 +21,16 @@ TODOs:
         -> disable change of order
     ->) 
     -> radars -> buttons are there, needs a function that checks if radars are empty and fills them -> see html 
-            -> remove datasets on buttonpress
-            -> fix hover function
+            -> remove datasets on buttonpress -->DONE
+            -> fix hover function-->DONE
 
+   
+   
     -> layout -> initial layout done, sizes of charts need to be adjusted accordingly 
         filter (25% of screenWidth) - map (50%) - radar(25%)
         overview (25%) - 3 radar(25%)
+
+
+    -> Still Errors for Congo(Kinshasa) --> fix or ignore..
 
 

@@ -57,20 +57,13 @@
 
         data = [];
         radarCharts_single = [];
-        //TODO: Choose Colors
-        colors = ['#1f78b4', '#b2df8a', '#33a02c'];
-
+        
+        //TODO: Choose other Colors?
+        
         var color = d3.scale.ordinal()
-            .range(["#EDC951","#CC333F","#00A0B0"]);
-        var color_1 = d3.scale.ordinal()
-            .range(['#7ab3ff'])
-        var color_2 = d3.scale.ordinal()
-            .range(['#b2df8a'])
-        var color_3 = d3.scale.ordinal()
-            .range(['#33a02c'])
-
-
-
+            .range(["#EDC951","#CC333F",'#7ab3ff']);
+        var color_single = d3.scale.ordinal()
+            .range(["#00A0B0"])
 
 
         array0 = {
@@ -89,14 +82,22 @@
         var radarChartOptions = {
             width: 400,
             height: 400,
-            color: color_1
+            color: color_single
         };
 
-        var radarChartOptions_lower = {
+        var radarChartOptions_overview = {
             width: 400,
             height: 400,
-            color: color
+            color: color 
         };
+        var radarChartOptions_single = {
+            
+            width: 400,
+            height: 400,
+            color: color_single
+        
+        };
+
 
         // upper Chart - Quick View
 
@@ -123,8 +124,7 @@
         d3.select('#overviewChart')
             .call(overviewChart);
 
-        overviewChart.options(radarChartOptions_lower).update();
-        overviewChart.options({area:{mouseover:false}}).update();
+        overviewChart.options(radarChartOptions_overview).update();
     
 
 
@@ -137,9 +137,7 @@
         radarChart1.addData(array0)
         d3.select('#radar1')
             .call(radarChart1);
-        radarChart1.options(radarChartOptions_lower).update();
-        radarChart1.options({color: color_1}).update();
-
+        radarChart1.options(radarChartOptions_single).update();
         radarCharts_single.push(radarChart1)
 
         radarChart2 = RadarChart();
@@ -151,8 +149,7 @@
         radarChart2.addData(array0)
         d3.select('#radar2')
             .call(radarChart2);
-        radarChart2.options(radarChartOptions_lower).update();
-        radarChart2.options({color: color_1}).update();
+        radarChart2.options(radarChartOptions_single).update();
         radarCharts_single.push(radarChart2)
 
         radarChart3 = RadarChart();
@@ -164,16 +161,16 @@
         radarChart3.addData(array0)
         d3.select('#radar3')
             .call(radarChart3);
-        radarChart3.options(radarChartOptions_lower).update();
-        radarChart3.options({color: color_1}).update();
+        radarChart3.options(radarChartOptions_single).update();
+       
         radarCharts_single.push(radarChart3)
 
     </script>
     <script>
         //TODO: choose colors for radar_chart min and max, change initial color of radarchart accordingly
         //maybe change button-color?
-        color_min = '#ff0000'
-        color_max = '#00ffff'
+        color_min = '#b2df8a'
+        color_max = '#a6cee3'
 
         function addOnClick() {
             added = false
@@ -206,7 +203,6 @@
             else{
                 alert("Please remove one of the exisiting datasets")
             }
-            recolor_overview()
         }
 
         function selectFilter() {
@@ -226,26 +222,16 @@
             //update_all();
         }
 
-        function recolor_overview(){
-            name1: radarChart1.get_content()
-            name2: radarChart2.get_content()
-            name3: radarChart3.get_content()
-                
-            overviewChart.colors({name1 : '#ff0000', name2 : colors[1], name3 : colors[2]}).update();
-        }
-
         function removeData(chart){
             var country_name
             country_name = chart.get_content()
             chart.removeData(country_name)
             overviewChart.removeData(country_name)
-            recolor_overview();
         }
 
         function update_all() {
             select_data();
             update_choropleth();
-            recolor_overview();
         }
     </script>
 
