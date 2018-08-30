@@ -36,12 +36,13 @@ function RadarChart() {
 
         areas: {
             colors: {},            // color lookup by key
-            opacity: 0.55,
+            opacity: 0.1,
             borderWidth: 2,
-            rounded: false,
+            rounded: true,
             dotRadius: 4,
             sort: true,          // sort layers by approximation of size, smallest on top
-            filter: []
+            filter: [],
+            mouseover:true
         },
 
         axes: {
@@ -697,6 +698,7 @@ function RadarChart() {
             }
         }
     }
+
     // Adds an Empty Dataset to display at the beginning
     chart.add_empty_data = function() {
         empty = {
@@ -719,6 +721,10 @@ function RadarChart() {
     chart.get_content = function(){
         name = data[0]['key']
         return name
+    }
+
+    chart.update_this = function(){
+        chart.update(data)
     }
 
 
@@ -906,8 +912,9 @@ function RadarChart() {
 
     // range of colors to set color based on index
     chart.color = function (value) {
-        if (!arguments.length) return options.color;
+        if (!arguments.length) return options.color, console.log('aaargh');
         options.color = value;
+        console.log('aaargh');
         return chart;
     }
 
@@ -915,7 +922,9 @@ function RadarChart() {
     chart.colors = function (colores) {
         if (!arguments.length) return options.areas.colors;
         options.areas.colors = colores;
+        chart.update()
         return chart;
+        
     }
 
     chart.keys = function () {
@@ -992,24 +1001,26 @@ function RadarChart() {
     // --------------
     function areaMouseover(d, i, self) {
         //Dim all blobs
-        d3.selectAll(".radarArea")
-            .transition().duration(200)
-            .style("fill-opacity", function (d, i, j) {
-                return options.areas.filter.indexOf(d.key) >= 0 ? 0 : 0.1;
-            });
+        //d3.selectAll(".radarArea")
+          //  .transition().duration(200)
+          //  .style("fill-opacity", function (d, i, j) {
+          //      return options.areas.filter.indexOf(d.key) >= 0 ? 0 : 0.1;
+          //  });
 
-
-
-        //Bring back the hovered over blob
-        d3.select(self)
+        
+       /* var area = keys.indexOf(d) >= 0 ? d : keyScale(d);
+        d3.selectAll(".radarArea." + area.replace(/\s+/g, ''))
             .transition().duration(200)
             .style("fill-opacity", function (d, i, j) {
                 return options.areas.filter.indexOf(d.key) >= 0 ? 0 : 0.7;
-            });
-    }
+            });*/
+            return
+            }
+            
+        
 
     function areaMouseout(d, i, self) {
-        //Bring back all blobs
+       // Bring back all blobs
         d3.selectAll(".radarArea")
             .transition().duration(200)
             .style("fill-opacity", function (d, i, j) {
@@ -1022,11 +1033,13 @@ function RadarChart() {
         var area = keys.indexOf(d) >= 0 ? d : keyScale(d);
 
         //Dim all blobs
-        d3.selectAll(".radarArea")
+        /*d3.selectAll(".radarArea")
             .transition().duration(200)
             .style("fill-opacity", function (d, i, j) {
                 return options.areas.filter.indexOf(d.key) >= 0 ? 0 : 0.1;
-            });
+            });*/
+
+        
 
         //Bring back the hovered over blob
         d3.selectAll(".radarArea." + area.replace(/\s+/g, ''))
@@ -1037,7 +1050,7 @@ function RadarChart() {
     }
 
     function legendClick(d, i, self) {
-        console.log("d", d, "i", i)
+        /*console.log("d", d, "i", i)
         var name = keys.indexOf(d) >= 0 ? d : keyScale(d)
         if (name != "No Country Selected") {
             chart.removeData(name)
@@ -1047,7 +1060,7 @@ function RadarChart() {
                 console.log("something should happen")
                 chart.add_empty_data()
             }
-        }
+        }*/
 
 
     }

@@ -57,9 +57,21 @@
 
         data = [];
         radarCharts_single = [];
+        //TODO: Choose Colors
+        colors = ['#1f78b4', '#b2df8a', '#33a02c'];
 
         var color = d3.scale.ordinal()
-            .range(['#1f78b4', '#b2df8a', '#33a02c', '#a6cee3', '#fb9a99']);
+            .range(["#EDC951","#CC333F","#00A0B0"]);
+        var color_1 = d3.scale.ordinal()
+            .range(['#7ab3ff'])
+        var color_2 = d3.scale.ordinal()
+            .range(['#b2df8a'])
+        var color_3 = d3.scale.ordinal()
+            .range(['#33a02c'])
+
+
+
+
 
         array0 = {
             "Country": "No Country Selected",
@@ -77,7 +89,7 @@
         var radarChartOptions = {
             width: 400,
             height: 400,
-            color: color
+            color: color_1
         };
 
         var radarChartOptions_lower = {
@@ -112,6 +124,8 @@
             .call(overviewChart);
 
         overviewChart.options(radarChartOptions_lower).update();
+        overviewChart.options({area:{mouseover:false}}).update();
+    
 
 
         radarChart1 = RadarChart();
@@ -124,6 +138,8 @@
         d3.select('#radar1')
             .call(radarChart1);
         radarChart1.options(radarChartOptions_lower).update();
+        radarChart1.options({color: color_1}).update();
+
         radarCharts_single.push(radarChart1)
 
         radarChart2 = RadarChart();
@@ -136,6 +152,7 @@
         d3.select('#radar2')
             .call(radarChart2);
         radarChart2.options(radarChartOptions_lower).update();
+        radarChart2.options({color: color_1}).update();
         radarCharts_single.push(radarChart2)
 
         radarChart3 = RadarChart();
@@ -148,6 +165,7 @@
         d3.select('#radar3')
             .call(radarChart3);
         radarChart3.options(radarChartOptions_lower).update();
+        radarChart3.options({color: color_1}).update();
         radarCharts_single.push(radarChart3)
 
     </script>
@@ -188,6 +206,7 @@
             else{
                 alert("Please remove one of the exisiting datasets")
             }
+            recolor_overview()
         }
 
         function selectFilter() {
@@ -207,10 +226,12 @@
             //update_all();
         }
 
-        function addToOverview(){
-            //TODO: get happy_data from respective radarChart, might need a different function for each radar
-            happy_data = happy;
-            overviewChart.addData(happy_data);
+        function recolor_overview(){
+            name1: radarChart1.get_content()
+            name2: radarChart2.get_content()
+            name3: radarChart3.get_content()
+                
+            overviewChart.colors({name1 : '#ff0000', name2 : colors[1], name3 : colors[2]}).update();
         }
 
         function removeData(chart){
@@ -218,11 +239,13 @@
             country_name = chart.get_content()
             chart.removeData(country_name)
             overviewChart.removeData(country_name)
+            recolor_overview();
         }
 
         function update_all() {
             select_data();
             update_choropleth();
+            recolor_overview();
         }
     </script>
 
