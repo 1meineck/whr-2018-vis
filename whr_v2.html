@@ -56,12 +56,13 @@
         var operation = d3.select('body').append('div').append('h2');
 
         data = [];
+        // List of single radar charts, needed for traversal
         radarCharts_single = [];
         
-        //TODO: Choose other Colors?
-        
+        //Colors for Overview chart
         var color = d3.scale.ordinal()
             .range(["#EDC951","#CC333F",'#7ab3ff']);
+        // Colors for all other radar charts
         var color_single = d3.scale.ordinal()
             .range(["#00A0B0"])
 
@@ -78,33 +79,64 @@
             "Corruption": 0.0
         }
         //TODO: Change Chart Options
-        //Chart Options
+      
+        //Chart Options for upper radar Chart
         var radarChartOptions = {
-            width: 400,
-            height: 400,
+             //Todo: find appropriate sizes here (for all of the options)
+            //width/height assigns the size of the whole radarchart, but margins will be set first, so probably just find a value that works there..
+           
+            width: 300,
+            height: 300,
+           
+            margins: {
+                top: 80,
+                right: 40,
+                bottom: 40,
+                left: 40
+            },
+            
+            legend:{display:true, symbol:'cirlce'},
             color: color_single
         };
-
+       
+        // Chart options for overview Chart
         var radarChartOptions_overview = {
-            width: 400,
-            height: 400,
+            width: 300,
+            height: 300,
+           
+            margins: {
+                top: 100,
+                right: 30,
+                bottom: 30,
+                left: 30
+            },
+           
+            legend:{
+                display:true,
+                symbol:'triangle-down'
+            },
+
             color: color 
         };
-        var radarChartOptions_single = {
-            
-            width: 400,
-            height: 400,
-            color: color_single
-        
+
+        // options for single radar charts below
+        var radarChartOptions_single = {  
+            width: 300,
+            height: 300,
+           
+            margins: {
+                top: 100,
+                right: 30,
+                bottom: 30,
+                left: 30
+            },
+            legend:{display:true, symbol:'circle'},
+            color:color_single 
         };
 
 
         // upper Chart - Quick View
-
         radarChart = RadarChart();
-        //this should happen for setup for each chart
-        radarChart.options({ 'legend': { display: true } });
-        radarChart.options({ 'legend': { symbol: 'triangle-down' } })
         //set stacking to true if multiple areas should be drawn
         radarChart.stacking(false).update()
         radarChart.addData(array0)
@@ -114,9 +146,6 @@
 
         // lower Charts - Overview & Compare
         overviewChart = RadarChart();
-        //this should happen for setup for each chart
-        overviewChart.options({ 'legend': { display: true } });
-        overviewChart.options({ 'legend': { symbol: 'triangle-down' } })
         //set stacking to true if multiple areas should be drawn
         overviewChart.stacking(true).update()
         overviewChart.addData(array0)
@@ -129,48 +158,37 @@
 
 
         radarChart1 = RadarChart();
-        //this should happen for setup for each chart
-        radarChart1.options({ 'legend': { display: true } });
-        radarChart1.options({ 'legend': { symbol: 'triangle-down' } })
         //set stacking to true if multiple areas should be drawn
         radarChart1.stacking(false).update()
         radarChart1.addData(array0)
         d3.select('#radar1')
             .call(radarChart1);
         radarChart1.options(radarChartOptions_single).update();
+        //add chart to array of charts to iterate
         radarCharts_single.push(radarChart1)
 
         radarChart2 = RadarChart();
-        //this should happen for setup for each chart
-        radarChart2.options({ 'legend': { display: true } });
-        radarChart2.options({ 'legend': { symbol: 'triangle-down' } })
         //set stacking to true if multiple areas should be drawn
         radarChart2.stacking(false).update()
         radarChart2.addData(array0)
         d3.select('#radar2')
             .call(radarChart2);
         radarChart2.options(radarChartOptions_single).update();
+        //add chart to array of charts to iterate
         radarCharts_single.push(radarChart2)
 
         radarChart3 = RadarChart();
-        //this should happen for setup for each chart
-        radarChart3.options({ 'legend': { display: true } });
-        radarChart3.options({ 'legend': { symbol: 'triangle-down' } })
         //set stacking to true if multiple areas should be drawn
         radarChart3.stacking(false).update()
         radarChart3.addData(array0)
         d3.select('#radar3')
             .call(radarChart3);
         radarChart3.options(radarChartOptions_single).update();
-       
+        //add chart to array of charts to iterate
         radarCharts_single.push(radarChart3)
 
     </script>
-    <script>
-        //TODO: choose colors for radar_chart min and max, change initial color of radarchart accordingly
-        //maybe change button-color?
-        color_min = '#b2df8a'
-        color_max = '#a6cee3'
+    <script>       
 
         function addOnClick() {
             added = false
@@ -188,7 +206,7 @@
                     return
                 }
             }
-            //TODO: check if radar 1, 2, 3 is empty -> add data
+            //check if radar 1, 2, 3 is empty -> add data
             for (var i = 0; i < radarCharts_single.length; i++) {  
                 if(radarCharts_single[i].is_empty() && !added){
                     radarCharts_single[i].addData(happy)
@@ -196,7 +214,7 @@
                     added = true
                 }
             }
-        
+            //add data to overview chart
             if (added){
                 overviewChart.addData(happy);
             }
@@ -206,6 +224,8 @@
         }
 
         function selectFilter() {
+            color_min = '#b2df8a'
+            color_max = '#a6cee3'
             //TODO: change color of filter - DONE
             invertbutton = document.getElementById("invert_button")
             if (selection){
@@ -219,7 +239,6 @@
             selection = !selection;
             set_data_to_selection();
             update_choropleth();
-            //update_all();
         }
 
         function removeData(chart){

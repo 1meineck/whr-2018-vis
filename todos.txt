@@ -4,14 +4,14 @@ TODOs:
     -> DONE change color of filter
     -> DONE change button text to indicate which modus is on
 - Styling
-    -> change color of choropleth
-    -> change colors of radar-charts
-    -> text 
-    -> select color for filter
+    -> change color of choropleth   (DONE)
+    -> change colors of radar-charts    (DONE)
+    -> (text )
+    -> select color for filter (DONE)
     
     -> choropleth: 
         -> border -> tried and failed. 
-        -> change color
+        (-> change color )
         -> hoverinfo-color?
         
    ( -> table: DONE
@@ -33,4 +33,5 @@ TODOs:
 
     -> Still Errors for Congo(Kinshasa) --> fix or ignore..
 
-
+    (also, with the filtering, there is still the problem of countries, for wich we have no data at all.. 
+    (not) coloring them the same as the data, which is filtered out might be confusing, but I don't really now if there is a good alternative ^^')
