@@ -2,17 +2,17 @@
 //Options for the Radar chart, other than default
 
 var cfg = {
-  w: 200,
-  h: 200,
+  w: window.innerWidth/4-120,
+  h: window.innerWidth/4-120,
   maxValue: 3.00,
   levels: 9,
  opacityArea: 0.50,
   radius:5,
   radians: 2 * Math.PI,
   factor:1,
-  factorLegend: 0.85,
+  factorLegend: 0.65,
 ToRight: 5,
-TranslateX: 100,
+TranslateX: 55,
  TranslateY:60,
  ExtraWidthX: 700,
  ExtraWidthY: 200,
@@ -82,7 +82,7 @@ for(var j=0; j<cfg.levels; j++){
                return levelFactor*(1-cfg.factor*Math.cos(0));})
            .attr("class", "skill-value")
            .style("font-family", "sans-serif")
-           .style("font-size", "10px")
+           .style("font-size", "0.7em")
            .attr("transform", "translate(" + (cfg.w/2-levelFactor + cfg.ToRight) + ", " + (cfg.h/2-levelFactor) + ")")
            .attr("fill", "#737373")
            .text(((j+1)*cfg.maxValue/cfg.levels).toFixed(2));
@@ -118,7 +118,7 @@ var maxAxisValues = [];
         .attr("class", "skill-legend")
         .text(function(d){return d;})
         .style("font-family", "sans-serif")
-        .style("font-size", "11px")
+        .style("font-size", "0.7em")
         .style("cursor","pointer")
         .attr("text-anchor", "middle")
         .attr("dy", "1.5em")

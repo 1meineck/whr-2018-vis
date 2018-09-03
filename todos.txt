@@ -13,6 +13,7 @@ TODOs:
         -> border -> tried and failed. 
         (-> change color )
         -> hoverinfo-color?
+        -> colorbar same size as map (roughly)-> Test on different computer
         
    ( -> table: DONE
         -> start without? -> show only if wanted

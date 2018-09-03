@@ -9,6 +9,7 @@ h1{
 * {
     padding: 0;
     margin: 0px auto;
+    font-size: 1.0em;
 }
 
 
@@ -32,24 +33,32 @@ h1{
     overflow: hidden;
     float: left;
     display:inline-flex;
+
 }
 #chart{
     width:25vw;
-    height: auto; 
-    float: left;
+    height: 25vw; 
     display:inline-flex;
+    float: left;
+}
+#filter-values{
+    width: 25vw;
+    font-size: 0.6em;
+    display: inline-flex;
+    vertical-align: top;
+    align-items: center;
 }
 
 #choropleth{
     width: 50vw;
-    height: 100vh;
+    height: 26vw;
     float: left;
     display:inline-flex;
 }
 
 #radar{
     width:25vw;
-    height: 100vh;
+    height: 25vw;
     float: left;
     display:inline-flex;
 }
@@ -63,9 +72,18 @@ h1{
 
 .radarset{
     width: 25vw;
-    height: auto;
+    height: 25vw;
     overflow: hidden;
     float: left;
     display:inline-flex;
 
+}
+#overviewChart{
+    background-color: rgba(219, 250, 240, 0.884);
+}
+
+.caption{
+    font-size: 2em;
+    float: left;
+    clear: both;
 }

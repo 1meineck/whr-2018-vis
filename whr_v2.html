@@ -22,8 +22,10 @@
             <div id="body">
                 <div class="w3-display-container" id="chart">
                     <button id="invert_button" class="w3-button w3-teal w3-display-topleft" onclick="selectFilter()">MAX</button>
+                    
                 </div>
                 <div class="update-value"></div>
+    
             </div>
             <div class="plot" id="choropleth"></div>
             <div class="w3-display-container" id="radar">
@@ -33,13 +35,13 @@
         <div id="lower">
             <div class="radarset" id="overviewChart"></div>
             <div class="w3-display-container radarset" id="radar1">
-                <button class="w3-button w3-circle w3-teal w3-display-bottomleft" onclick="removeData(radarChart1)">&#8249;</button>
+                <button class="w3-button w3-tiny w3-teal w3-display-topright" onclick="removeData(radarChart1)">X</button>
             </div>
             <div class="w3-display-container radarset" id="radar2">
-                <button class="w3-button w3-circle w3-teal w3-display-bottomleft" onclick="removeData(radarChart2)">&#8249;</button>
+                <button class="w3-button w3-tiny w3-teal w3-display-topright" onclick="removeData(radarChart2)">X</button>
             </div>
             <div class="w3-display-container radarset" id="radar3">
-                <button class="w3-button w3-circle w3-teal w3-display-bottomleft" onclick="removeData(radarChart3)">&#8249;</button>
+                <button class="w3-button w3-tiny w3-teal w3-display-topright" onclick="removeData(radarChart3)">X</button>
             </div>
         </div>
     </div>
@@ -85,8 +87,8 @@
              //Todo: find appropriate sizes here (for all of the options)
             //width/height assigns the size of the whole radarchart, but margins will be set first, so probably just find a value that works there..
            
-            width: 300,
-            height: 300,
+            width: window.innerWidth/4,
+            height: window.innerWidth/4,
            
             margins: {
                 top: 80,
@@ -101,8 +103,8 @@
        
         // Chart options for overview Chart
         var radarChartOptions_overview = {
-            width: 300,
-            height: 300,
+            width: window.innerWidth/4,
+            height: window.innerWidth/4,
            
             margins: {
                 top: 100,
@@ -121,8 +123,8 @@
 
         // options for single radar charts below
         var radarChartOptions_single = {  
-            width: 300,
-            height: 300,
+            width: window.innerWidth/4,
+            height: window.innerWidth/4,
            
             margins: {
                 top: 100,

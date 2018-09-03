@@ -30,7 +30,7 @@ var layout_choropleth = {
             b: 20,
         },
         showframe: true,
-        autoexpand: true,
+        autoexpand: true,      
     };
 
 var data_choropleth = [];
@@ -54,10 +54,10 @@ function update_choropleth() {
         xaxis: 'x',
         colorscale: 'YlGnBu',
         colorbar: {
+            lenmode: 'pixel',
+            len: layout_choropleth.height,
             x: 1,
-        },
-        
-        
+        },        
     }];
     Plotly.react('choropleth', data_choropleth, layout_choropleth, { showLink: false, displayModeBar: false});
 
