@@ -76,14 +76,55 @@ h1{
     overflow: hidden;
     float: left;
     display:inline-flex;
+    border-right-style: dashed;
+    border-right-width: 1px;
+    border-right-color: teal;
 
 }
 #overviewChart{
-    background-color: rgba(219, 250, 240, 0.884);
+    background-color: rgb(217, 247, 247);
+    border-right-style: solid;
+    border-right-width: 2px;
+    border-right-color: teal;
 }
 
 .caption{
     font-size: 2em;
     float: left;
     clear: both;
+}
+#topbar{
+    width:100vw;
+    display: inline-block;
+}
+#title{
+    width:90vw;
+    float: left;
+}
+#openTable{
+    width:10vw;
+    float: left;
+}
+h1{
+    margin-left: 10vw;
+}
+
+thead{
+    position: sticky;
+    top:0;
+}
+#table-button{
+    position: sticky;
+    top: 0;
+}
+i {
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
 }

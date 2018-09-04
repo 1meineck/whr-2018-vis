@@ -1,19 +1,19 @@
 var selected_choropleth = [];
 var deselected_choropleth = [];
 var hover_text = [];
-var selected_table = [];
-var deselected_table = [];
+var selected_table = [[],[]];
+var deselected_table = [[],[]];
 
 var current_choropleth = []; 
-var current_table = [];
+var current_table = [[],[]];
 
 var selection = true;
 
 function select_data() {
 	selected_choropleth = [];
 	deselected_choropleth = [];
-	selected_table = [];
-	deselected_table =[];
+	selected_table = [[],[]];
+	deselected_table =[[],[]];
 	hover_text = [];
 
 	for (i = 0; i < data_complete.length; i++) {
@@ -26,10 +26,12 @@ function select_data() {
 				&& current_data.Generosity <= axisLevels.Generosity
 				&& current_data.Corruption <= axisLevels.Corruption){
 				selected_choropleth.push(current_data);
-				selected_table.push([current_data.Country, current_data.HappinessScore]);
+				selected_table[0].push(current_data.Country);
+				selected_table[1].push(current_data.HappinessScore);
 			} else{
 				deselected_choropleth.push(current_data);
-				deselected_table.push([current_data.Country, current_data.HappinessScore]);
+				deselected_table[0].push(current_data.Country);
+				deselected_table[1].push(current_data.HappinessScore);
 		}
 	}
 	set_data_to_selection();
