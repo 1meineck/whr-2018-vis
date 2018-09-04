@@ -12,15 +12,15 @@ TODOs:
     -> choropleth: 
         -> border -> tried and failed. 
         (-> change color )
-        -> hoverinfo-color?
-        -> colorbar same size as map (roughly)-> Test on different computer
+        -> hoverinfo-color? -> etienne: not possible
+        -> colorbar same size as map (roughly)-> works fine on both of mine
         
-   ( -> table: DONE
-        -> start without? -> show only if wanted
+    -> table: DONE -> changed to html, discard plotly DONE
+        (-> start without? -> show only if wanted
         -> color
         -> text font
-        -> disable change of order
-    ->) 
+        -> disable change of order)
+    
     -> radars -> buttons are there, needs a function that checks if radars are empty and fills them -> see html 
             -> remove datasets on buttonpress -->DONE
             -> fix hover function-->DONE
@@ -36,3 +36,5 @@ TODOs:
 
     (also, with the filtering, there is still the problem of countries, for wich we have no data at all.. 
     (not) coloring them the same as the data, which is filtered out might be confusing, but I don't really now if there is a good alternative ^^')
+
+    -> Add text to radars to show data
