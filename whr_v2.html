@@ -11,29 +11,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.3.0/d3-legend.js" charset="utf-8"></script>
 
     <title> World Happiness Report 2018</title>
-          
-          <div class="w3-sidebar w3-bar-block w3-card w3-animate-right" style="display:none;right:0;" id="rightMenu">
-            <button id="table-button" onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
-            <div id="table">
-                <table class="w3-table-all">
-                    <thead id="thead">
-                        <tr class="w3-teal">
-                            <th>Country</th>
-                            <th>Happiness Score</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody"></tbody>
-                  </table>
-            </div>
-          </div>
-          
-          <div id="topbar" class="w3-teal">
-                <div id=title class="w3-container">
-                        <h1>World Happiness Report 2018</h1>
-                      </div>
-            <button id=openTable class="w3-button w3-teal w3-xlarge w3-right" onclick="openRightMenu()">Table <i class="arrow down"></i></button>
-            
-          </div>
+
+    <div class="w3-sidebar w3-bar-block w3-card w3-animate-right" style="display:none;right:0;" id="rightMenu">
+        <button id="table-button" onclick="closeRightMenu()" class="w3-bar-item w3-button">Close &nbsp; <i class="arrow right"></i></button>
+        <div id="table">
+            <table class="w3-table-all">
+                <thead id="thead">
+                    <tr class="w3-teal">
+                        <th>Country</th>
+                        <th>Happiness Score</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="topbar" class="w3-teal">
+        <div id=title class="w3-container">
+            <h1>World Happiness Report 2018</h1>
+        </div>
+        <button id=openTable class="w3-button w3-teal w3-right" onclick="openRightMenu()"><i class="arrow left"></i> &nbsp; Table</button>
+
+    </div>
 </head>
 
 
@@ -44,14 +44,14 @@
             <div id="body">
                 <div class="w3-display-container" id="chart">
                     <button id="invert_button" class="w3-button w3-teal w3-display-topleft" onclick="selectFilter()">MAX</button>
-                    
+
                 </div>
                 <div class="update-value"></div>
-    
+
             </div>
             <div class="plot" id="choropleth"></div>
             <div class="w3-display-container" id="radar">
-                <button class="w3-button w3-circle w3-teal w3-display-bottomleft" onclick="addOnClick()">+</button>
+                <button id="add-button" class="w3-button w3-medium w3-circle w3-teal w3-display-bottomleft" onclick="addOnClick()">&plus;</button>
             </div>
         </div>
         <div id="lower">
@@ -83,10 +83,10 @@
         data = [];
         // List of single radar charts, needed for traversal
         radarCharts_single = [];
-        
+
         //Colors for Overview chart
         var color = d3.scale.ordinal()
-            .range(["#EDC951","#CC333F",'#7ab3ff']);
+            .range(["#EDC951", "#CC333F", '#7ab3ff']);
         // Colors for all other radar charts
         var color_single = d3.scale.ordinal()
             .range(["#00A0B0"])
@@ -104,59 +104,59 @@
             "Corruption": 0.0
         }
         //TODO: Change Chart Options
-      
+
         //Chart Options for upper radar Chart
         var radarChartOptions = {
-             //Todo: find appropriate sizes here (for all of the options)
+            //Todo: find appropriate sizes here (for all of the options)
             //width/height assigns the size of the whole radarchart, but margins will be set first, so probably just find a value that works there..
-           
-            width: window.innerWidth/4,
-            height: window.innerWidth/4,
-           
+
+            width: window.innerWidth / 4,
+            height: window.innerWidth / 4,
+
             margins: {
                 top: 80,
                 right: 40,
                 bottom: 40,
                 left: 40
             },
-            
-            legend:{display:true, symbol:'cirlce'},
+
+            legend: { display: true, symbol: 'cirlce' },
             color: color_single
         };
-       
+
         // Chart options for overview Chart
         var radarChartOptions_overview = {
-            width: window.innerWidth/4,
-            height: window.innerWidth/4,
-           
+            width: window.innerWidth / 4,
+            height: window.innerWidth / 4,
+
             margins: {
                 top: 100,
                 right: 30,
                 bottom: 30,
                 left: 30
             },
-           
-            legend:{
-                display:true,
-                symbol:'triangle-down'
+
+            legend: {
+                display: true,
+                symbol: 'triangle-down'
             },
 
-            color: color 
+            color: color
         };
 
         // options for single radar charts below
-        var radarChartOptions_single = {  
-            width: window.innerWidth/4,
-            height: window.innerWidth/4,
-           
+        var radarChartOptions_single = {
+            width: window.innerWidth / 4,
+            height: window.innerWidth / 4,
+
             margins: {
                 top: 100,
                 right: 30,
                 bottom: 30,
                 left: 30
             },
-            legend:{display:true, symbol:'circle'},
-            color:color_single 
+            legend: { display: true, symbol: 'circle' },
+            color: color_single
         };
 
 
@@ -179,7 +179,7 @@
             .call(overviewChart);
 
         overviewChart.options(radarChartOptions_overview).update();
-    
+
 
 
         radarChart1 = RadarChart();
@@ -218,32 +218,32 @@
         function addOnClick() {
             added = false
             //check if there is data to add
-            if (radarChart.is_empty()){
+            if (radarChart.is_empty()) {
                 return
             }
             var name = radarChart.get_content()
             //check if the country is already in the dataset
-            for(var i=0; i < radarCharts_single.length; i++){
+            for (var i = 0; i < radarCharts_single.length; i++) {
                 chart = radarCharts_single[i]
-                if(chart.get_content() == name){
+                if (chart.get_content() == name) {
                     console.log(name)
                     alert("This Country is already shown in the overview")
                     return
                 }
             }
             //check if radar 1, 2, 3 is empty -> add data
-            for (var i = 0; i < radarCharts_single.length; i++) {  
-                if(radarCharts_single[i].is_empty() && !added){
+            for (var i = 0; i < radarCharts_single.length; i++) {
+                if (radarCharts_single[i].is_empty() && !added) {
                     radarCharts_single[i].addData(happy)
                     overviewChart.addData(happy)
                     added = true
                 }
             }
             //add data to overview chart
-            if (added){
+            if (added) {
                 overviewChart.addData(happy);
             }
-            else{
+            else {
                 alert("Please remove one of the exisiting datasets")
             }
         }
@@ -253,13 +253,13 @@
             color_max = '#a6cee3'
             //TODO: change color of filter - DONE
             invertbutton = document.getElementById("invert_button")
-            if (selection){
+            if (selection) {
                 setColor(color_min)
-                invertbutton.innerText="MIN"
+                invertbutton.innerText = "MIN"
             }
-            else{
+            else {
                 setColor(color_max)
-                invertbutton.innerText="MAX"
+                invertbutton.innerText = "MAX"
             }
             selection = !selection;
             set_data_to_selection();
@@ -267,7 +267,7 @@
             update_table();
         }
 
-        function removeData(chart){
+        function removeData(chart) {
             var country_name
             country_name = chart.get_content()
             chart.removeData(country_name)
@@ -281,18 +281,15 @@
         }
 
         function openRightMenu() {
-    document.getElementById("rightMenu").style.display = "block";
-    var button_height = document.getElementById('table-button').clientHeight; 
-    $(thead).css("top", button_height);
-}
-function closeRightMenu() {
-    document.getElementById("rightMenu").style.display = "none";
+            document.getElementById("rightMenu").style.display = "block";
+            var button_height = document.getElementById('table-button').clientHeight;
+            $(thead).css("top", button_height);
+        }
+        function closeRightMenu() {
+            document.getElementById("rightMenu").style.display = "none";
 
-}
+        }
 
-    var button_height = document.getElementById('table-button').clientHeight; 
-    $(thead).css("top", button_height);
-    console.log(button_height);
     </script>
 
 

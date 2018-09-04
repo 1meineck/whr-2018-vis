@@ -10,7 +10,7 @@ var cfg = {
   radius:5,
   radians: 2 * Math.PI,
   factor:1,
-  factorLegend: 0.60,
+  factorLegend: 0.65,
 ToRight: 5,
 TranslateX: 60,
  TranslateY:60,
