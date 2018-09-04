@@ -30,7 +30,7 @@ var layout_choropleth = {
             b: 20,
         },
         showframe: true,
-        autoexpand: true,      
+        autoexpand: true,    
     };
 
 var data_choropleth = [];
@@ -69,11 +69,9 @@ Plotly.plot('choropleth', data_choropleth, layout_choropleth, { showLink: false,
         // enter and update selection
 
         //TODO: <- just to find faster
-        // here we create happy data that is used to fill radar charts. 
+        // here we create the happiness data that is used to fill radar charts. 
         happy = getHappiness(pt.location);
-
         radarChart.addData(happy);
-       // overviewChart.addData(happy);
 
     }
 
