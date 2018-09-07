@@ -104,20 +104,21 @@
             "Corruption": 0.0
         }
         //TODO: Change Chart Options
-
+        
+        var w = window.innerWidth;
         //Chart Options for upper radar Chart
         var radarChartOptions = {
             //Todo: find appropriate sizes here (for all of the options)
             //width/height assigns the size of the whole radarchart, but margins will be set first, so probably just find a value that works there..
 
-            width: window.innerWidth / 4,
-            height: window.innerWidth / 4,
+            width: w / 4,
+            height: w / 4,
 
             margins: {
-                top: 80,
-                right: 40,
-                bottom: 40,
-                left: 40
+                top: w/20,
+                right: w/20,
+                bottom: w/20,
+                left: w/20
             },
 
             legend: { display: true, symbol: 'cirlce' },
@@ -130,10 +131,10 @@
             height: window.innerWidth / 4,
 
             margins: {
-                top: 100,
-                right: 30,
-                bottom: 30,
-                left: 30
+                top: w/16,
+                right: w/20,
+                bottom: w/20,
+                left: w/20
             },
 
             legend: {
@@ -150,10 +151,10 @@
             height: window.innerWidth / 4,
 
             margins: {
-                top: 100,
-                right: 30,
-                bottom: 30,
-                left: 30
+                top: w/20,
+                right: w/20,
+                bottom: w/20,
+                left: w/20
             },
             legend: { display: true, symbol: 'circle' },
             color: color_single
