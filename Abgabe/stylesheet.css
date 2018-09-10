@@ -1,0 +1,162 @@
+@import url("https://www.w3schools.com/w3css/4/w3.css");
+
+h1{
+    text-align: center;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+#main{
+    width: 98.8vw;
+    height: auto;
+    overflow: hidden;
+    display:inline-block;
+}
+#upper{
+    width: 98.8vw;
+    height: auto;
+    overflow: hidden;
+    display:inline-block;
+}
+
+#body{
+    width:24.7vw; 
+    height: auto;
+    overflow: hidden;
+    float: left;
+    display:inline-flex;
+
+}
+#chart{
+    width:24.7vw;
+    height: 24.7vw; 
+    display:inline-flex;
+    float: left;
+}
+#filter-values{
+    width: 24.7vw;
+    font-size: 0.6em;
+    display: inline-flex;
+    vertical-align: top;
+    align-items: center;
+}
+
+#choropleth{
+    width: 49.4vw;
+    height: 25.7vw;
+    float: left;
+    display:inline-flex;
+}
+
+#radar{
+    width:24.7vw;
+    height: 24.7vw;
+    float: left;
+    display:inline-flex;
+    font-size: 0.7em;
+}
+
+#lower{
+    width: 98.8vw;
+    height: auto;
+    overflow: hidden;
+    display:inline-block;
+}
+
+.radarset{
+    width: 24.7vw;
+    height: 24.7vw;
+    overflow: hidden;
+    float: left;
+    display:inline-flex;
+    border-right-style: dashed;
+    border-right-width: 1px;
+    border-right-color: teal;
+    font-size: 0.7em;
+
+}
+#radar3{
+    border-right-style: none;
+}
+#overviewChart{
+    background-color: rgb(245, 250, 250);
+    font-size: 0.7em;
+    
+    border-right-style: solid;
+    border-right-width: 2px;
+    border-right-color: teal;
+}
+
+.caption{
+    font-size: 2em;
+    float: left;
+    clear: both;
+}
+#topbar{
+    width:98.8vw;
+    display: inline-block;
+}
+#title{
+    width:90vw;
+    float: left;
+}
+#openTable{
+    width:8.8vw;
+    float: left;
+    font-size: small;
+    padding: 1.5em 1.5em;
+    text-align: center;
+}
+h1{
+    margin-left: 8.8vw;
+}
+
+thead{
+    position: sticky;
+    top:0;
+}
+#table-button{
+    font-size: small;
+    padding: 1.5em 1.5em;
+    text-align: center;
+    position: sticky;
+    top: 0;
+}
+
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.right {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.left {
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+#rightMenu{
+    width: 20vw;
+    font-size: small;
+}
+
+#add-button{
+    font-size: small;
+    padding-bottom: 0.7em;
+    padding-top: 0.7em;
+    
+}

@@ -103,13 +103,10 @@
             "Generosity": 0.0,
             "Corruption": 0.0
         }
-        //TODO: Change Chart Options
-        
+
         var w = window.innerWidth;
         //Chart Options for upper radar Chart
         var radarChartOptions = {
-            //Todo: find appropriate sizes here (for all of the options)
-            //width/height assigns the size of the whole radarchart, but margins will be set first, so probably just find a value that works there..
 
             width: w / 4,
             height: w / 4,
@@ -125,7 +122,7 @@
             color: color_single
         };
 
-        // Chart options for overview Chart
+        // Chart options for overview Chart - below
         var radarChartOptions_overview = {
             width: window.innerWidth / 4,
             height: window.innerWidth / 4,
@@ -145,7 +142,7 @@
             color: color
         };
 
-        // options for single radar charts below
+        // options for single radar charts - below
         var radarChartOptions_single = {
             width: window.innerWidth / 4,
             height: window.innerWidth / 4,
@@ -163,54 +160,47 @@
 
         // upper Chart - Quick View
         radarChart = RadarChart();
-        //set stacking to true if multiple areas should be drawn
         radarChart.stacking(false).update()
         radarChart.addData(array0)
         d3.select('#radar')
             .call(radarChart);
         radarChart.options(radarChartOptions).update();
 
+
         // lower Charts - Overview & Compare
+        //Overview
         overviewChart = RadarChart();
-        //set stacking to true if multiple areas should be drawn
         overviewChart.stacking(true).update()
         overviewChart.addData(array0)
-
         d3.select('#overviewChart')
             .call(overviewChart);
-
         overviewChart.options(radarChartOptions_overview).update();
 
-
-
+        //Radar1
         radarChart1 = RadarChart();
-        //set stacking to true if multiple areas should be drawn
         radarChart1.stacking(false).update()
         radarChart1.addData(array0)
         d3.select('#radar1')
             .call(radarChart1);
         radarChart1.options(radarChartOptions_single).update();
-        //add chart to array of charts to iterate
         radarCharts_single.push(radarChart1)
 
+        //Radar2
         radarChart2 = RadarChart();
-        //set stacking to true if multiple areas should be drawn
         radarChart2.stacking(false).update()
         radarChart2.addData(array0)
         d3.select('#radar2')
             .call(radarChart2);
         radarChart2.options(radarChartOptions_single).update();
-        //add chart to array of charts to iterate
         radarCharts_single.push(radarChart2)
 
+        //Radar3
         radarChart3 = RadarChart();
-        //set stacking to true if multiple areas should be drawn
         radarChart3.stacking(false).update()
         radarChart3.addData(array0)
         d3.select('#radar3')
             .call(radarChart3);
         radarChart3.options(radarChartOptions_single).update();
-        //add chart to array of charts to iterate
         radarCharts_single.push(radarChart3)
 
     </script>
@@ -251,7 +241,6 @@
         function selectFilter() {
             color_min = '#b2df8a'
             color_max = '#a6cee3'
-            //TODO: change color of filter - DONE
             invertbutton = document.getElementById("invert_button")
             if (selection) {
                 setColor(color_min)
